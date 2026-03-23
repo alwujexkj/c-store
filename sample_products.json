@@ -1,0 +1,8 @@
+[
+    {"barcode": "6901028001753", "name": "中华（软）", "spec": "84s", "price": 58.0, "stock": 10, "min_stock": 5, "category": "烟草"},
+    {"barcode": "6901028001708", "name": "利群（新版）", "spec": "84s", "price": 26.0, "stock": 15, "min_stock": 10, "category": "烟草"},
+    {"barcode": "6920202888888", "name": "农夫山泉", "spec": "550ml", "price": 2.0, "stock": 50, "min_stock": 20, "category": "饮料"},
+    {"barcode": "6954767422031", "name": "可口可乐", "spec": "330ml", "price": 3.0, "stock": 30, "min_stock": 15, "category": "饮料"},
+    {"barcode": "6948765423456", "name": "康师傅方便面", "spec": "红烧牛肉面", "price": 4.5, "stock": 25, "min_stock": 10, "category": "食品"},
+    {"barcode": "6936955555555", "name": "德芙巧克力", "spec": "42g", "price": 8.5, "stock": 12, "min_stock": 5, "category": "食品"}
+]

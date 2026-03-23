@@ -1,0 +1,13 @@
+{
+  "name": "c-store",
+  "version": "1.0.0",
+  "description": "便利店管理系统",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}
