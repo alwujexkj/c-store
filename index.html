@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便利店管理系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.4.4/dist/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/dist/index.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        
+        #app {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            text-align: center;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .menu-item.active {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-left: 4px solid #fff;
+        }
+        
+        .menu-item .el-icon {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
+            padding: 20px;
+        }
+        
+        .page-header {
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        
+        .page-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        
+        /* 卡片样式 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            color: #fff;
+        }
+        
+        .stat-card.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .stat-card.green {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .stat-card.yellow {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        /* 表格样式 */
+        .el-table {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .el-table th {
+            background: #f5f7fa !important;
+            font-weight: 600;
+        }
+        
+        /* 表单样式 */
+        .form-section {
+            max-width: 600px;
+        }
+        
+        /* 扫码区域 */
+        .scan-area {
+            text-align: center;
+            padding: 60px 40px;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .scan-icon {
+            font-size: 80px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .scan-input {
+            font-size: 24px;
+            padding: 15px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        /* 库存预警 */
+        .warning-badge {
+            background: #f56c6c;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        /* 弹窗商品卡片 */
+        .product-popup {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .product-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 0 auto 15px;
+            border-radius: 8px;
+            background: #f5f7fa;
+        }
+        
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .product-spec {
+            color: #909399;
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            color: #f56c6c;
+            font-weight: bold;
+        }
+        
+        .product-stock {
+            margin-top: 10px;
+            color: #67c23a;
+        }
+        
+        .product-stock.low {
+            color: #f56c6c;
+        }
+        
+        /* 上传区域 */
+        .upload-area {
+            text-align: center;
+            padding: 40px;
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        /* 标签页样式 */
+        .el-tabs__nav-wrap::after {
+            height: 1px;
+        }
+        
+        .el-tabs__item {
+            font-size: 16px;
+        }
+        
+        /* 搜索框 */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar .el-input {
+            max-width: 300px;
+        }
+        
+        /* 按钮 */
+        .el-button--primary {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        
+        .el-button--primary:hover {
+            background: linear-gradient(90deg, #5a6fd6 0%, #6a4190 100%);
+        }
+        
+        /* 数字键盘 */
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        
+        .numpad-btn {
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .numpad-btn:hover {
+            background: #667eea;
+            color: #fff;
+            border-color: #667eea;
+        }
+        
+        .numpad-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #909399;
+        }
+        
+        .empty-state .el-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        /* 小标签 */
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .tag-success { background: #f0f9eb; color: #67c23a; }
+        .tag-warning { background: #fdf6ec; color: #e6a23c; }
+        .tag-danger { background: #fef0f0; color: #f56c6c; }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding: 10px 0;
+            }
+            
+            .logo span,
+            .menu-item span {
+                display: none;
+            }
+            
+            .menu-item {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .menu-item .el-icon {
+                margin-right: 0;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🏪</div>
+                <span>便利店管理</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'dashboard'}" @click="currentPage = 'dashboard'">
+                <el-icon><DataAnalysis /></el-icon>
+                <span>数据概览</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'products'}" @click="currentPage = 'products'">
+                <el-icon><Goods /></el-icon>
+                <span>商品管理</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'scan'}" @click="currentPage = 'scan'">
+                <el-icon><Camera /></el-icon>
+                <span>扫码销售</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'purchase'}" @click="currentPage = 'purchase'">
+                <el-icon><DocumentAdd /></el-icon>
+                <span>进货入库</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'warning'}" @click="currentPage = 'warning'">
+                <el-icon><Bell /></el-icon>
+                <span>库存预警</span>
+            </div>
+            <div class="menu-item" :class="{active: currentPage === 'reports'}" @click="currentPage = 'reports'">
+                <el-icon><PieChart /></el-icon>
+                <span>报表统计</span>
+            </div>
+        </div>
+        
+        <!-- 主内容区 -->
+        <div class="main-content">
+            
+            <!-- 仪表盘 -->
+            <div v-if="currentPage === 'dashboard'">
+                <div class="page-header">
+                    <div class="page-title">📊 数据概览</div>
+                    <div style="color: #909399;">{{ currentTime }}</div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">商品总数</div>
+                        <div class="stat-value">{{ stats.totalProducts }}</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <div class="stat-label">今日销售额</div>
+                        <div class="stat-value">¥{{ stats.todaySales }}</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-label">库存预警</div>
+                        <div class="stat-value">{{ stats.lowStockCount }}</div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-label">本月进货</div>
+                        <div class="stat-value">¥{{ stats.monthlyPurchase }}</div>
+                    </div>
+                </div>
+                
+                <div class="page-content">
+                    <h3 style="margin-bottom: 20px;">📈 销售趋势（近7天）</h3>
+                    <div id="salesChart" style="height: 300px;"></div>
+                </div>
+            </div>
+            
+            <!-- 商品管理 -->
+            <div v-if="currentPage === 'products'">
+                <div class="page-header">
+                    <div class="page-title">🏷️ 商品管理</div>
+                    <el-button type="primary" @click="showProductDialog = true">
+                        <el-icon><Plus /></el-icon> 添加商品
+                    </el-button>
+                </div>
+                
+                <div class="page-content">
+                    <div class="search-bar">
+                        <el-input v-model="productSearch" placeholder="搜索商品名称/条码" clearable>
+                            <template #prefix>
+                                <el-icon><Search /></el-icon>
+                            </template>
+                        </el-input>
+                        <el-select v-model="categoryFilter" placeholder="分类筛选" clearable style="width: 150px;">
+                            <el-option label="全部" value="" />
+                            <el-option label="食品" value="食品" />
+                            <el-option label="饮料" value="饮料" />
+                            <el-option label="日用品" value="日用品" />
+                            <el-option label="烟草" value="烟草" />
+                        </el-select>
+                    </div>
+                    
+                    <el-table :data="filteredProducts" style="width: 100%">
+                        <el-table-column prop="barcode" label="条码" width="150" />
+                        <el-table-column prop="name" label="商品名称" />
+                        <el-table-column prop="spec" label="规格" width="120" />
+                        <el-table-column prop="price" label="单价" width="100">
+                            <template #default="scope">
+                                ¥{{ scope.row.price.toFixed(2) }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="stock" label="库存" width="100">
+                            <template #default="scope">
+                                <span :style="{color: scope.row.stock <= scope.row.min_stock ? '#f56c6c' : '#67c23a'}">
+                                    {{ scope.row.stock }}
+                                </span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="操作" width="150">
+                            <template #default="scope">
+                                <el-button size="small" @click="editProduct(scope.row)">编辑</el-button>
+                                <el-button size="small" type="danger" @click="deleteProduct(scope.row.id)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+            </div>
+            
+            <!-- 扫码销售 -->
+            <div v-if="currentPage === 'scan'">
+                <div class="page-header">
+                    <div class="page-title">📱 扫码销售</div>
+                </div>
+                
+                <div class="page-content">
+                    <div class="scan-area">
+                        <div class="scan-icon">📷</div>
+                        <h3>扫码枪扫描商品条形码</h3>
+                        <p style="color: #909399; margin-top: 10px;">或手动输入条码后按回车</p>
+                        
+                        <el-input 
+                            v-model="scanBarcode" 
+                            class="scan-input" 
+                            placeholder="请扫描或输入条码"
+                            @keyup.enter="queryProduct"
+                            autofocus
+                            ref="scanInput"
+                        >
+                            <template #prefix>
+                                <el-icon><Search /></el-icon>
+                            </template>
+                        </el-input>
+                    </div>
+                    
+                    <!-- 销售数字键盘 -->
+                    <div v-if="currentProduct" class="page-content" style="margin-top: 20px;">
+                        <div class="product-popup">
+                            <img :src="currentProduct.image || '/placeholder.png'" class="product-image" />
+                            <div class="product-name">{{ currentProduct.name }}</div>
+                            <div class="product-spec">{{ currentProduct.spec }}</div>
+                            <div class="product-price">¥{{ currentProduct.price.toFixed(2) }}</div>
+                            <div class="product-stock" :class="{low: currentProduct.stock <= currentProduct.min_stock}">
+                                库存: {{ currentProduct.stock }}
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <el-input-number v-model="saleQuantity" :min="1" :max="currentProduct.stock" size="large" />
+                            <el-button type="primary" size="large" style="margin-left: 20px;" @click="confirmSale">
+                                确认销售 ¥{{ (currentProduct.price * saleQuantity).toFixed(2) }}
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 进货入库 -->
+            <div v-if="currentPage === 'purchase'">
+                <div class="page-header">
+                    <div class="page-title">📦 进货入库</div>
+                    <el-button type="primary" @click="showUploadDialog = true">
+                        <el-icon><Upload /></el-icon> AI识别进货单
+                    </el-button>
+                </div>
+                
+                <div class="page-content">
+                    <el-tabs v-model="purchaseTab">
+                        <el-tab-pane label="手动入库" name="manual">
+                            <el-form :model="purchaseForm" label-width="100px" class="form-section">
+                                <el-form-item label="商品">
+                                    <el-select v-model="purchaseForm.productId" filterable placeholder="选择商品" style="width: 100%;">
+                                        <el-option 
+                                            v-for="p in products" 
+                                            :key="p.id" 
+                                            :label="p.name + (p.spec ? ' (' + p.spec + ')' : '')" 
+                                            :value="p.id" 
+                                        />
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="入库数量">
+                                    <el-input-number v-model="purchaseForm.quantity" :min="1" style="width: 100%;" />
+                                </el-form-item>
+                                <el-form-item label="进货单价">
+                                    <el-input-number v-model="purchaseForm.unitPrice" :min="0" :precision="2" style="width: 100%;" />
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="submitPurchase">确认入库</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-tab-pane>
+                        
+                        <el-tab-pane label="入库记录" name="records">
+                            <el-table :data="purchaseRecords" style="width: 100%">
+                                <el-table-column prop="created_at" label="日期" width="180" />
+                                <el-table-column prop="supplier" label="供应商" />
+                                <el-table-column prop="total_quantity" label="商品数" width="100" />
+                                <el-table-column prop="total_amount" label="金额" width="120">
+                                    <template #default="scope">
+                                        ¥{{ scope.row.total_amount.toFixed(2) }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="status" label="状态" width="100">
+                                    <template #default="scope">
+                                        <el-tag :type="scope.row.status === 'completed' ? 'success' : 'warning'">
+                                            {{ scope.row.status === 'completed' ? '已完成' : '待处理' }}
+                                        </el-tag>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+            </div>
+            
+            <!-- 库存预警 -->
+            <div v-if="currentPage === 'warning'">
+                <div class="page-header">
+                    <div class="page-title">⚠️ 库存预警</div>
+                </div>
+                
+                <div class="page-content">
+                    <el-alert v-if="lowStockProducts.length > 0" type="warning" :closable="false" style="margin-bottom: 20px;">
+                        <template #title>
+                            <span>共 {{ lowStockProducts.length }} 个商品库存不足</span>
+                        </template>
+                    </el-alert>
+                    
+                    <el-table :data="lowStockProducts" style="width: 100%">
+                        <el-table-column prop="barcode" label="条码" width="150" />
+                        <el-table-column prop="name" label="商品名称" />
+                        <el-table-column prop="spec" label="规格" width="120" />
+                        <el-table-column prop="stock" label="当前库存" width="100">
+                            <template #default="scope">
+                                <span class="warning-badge">{{ scope.row.stock }}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="min_stock" label="最低库存" width="100" />
+                        <el-table-column label="操作" width="150">
+                            <template #default="scope">
+                                <el-button size="small" type="primary" @click="quickPurchase(scope.row)">快速入库</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    
+                    <div v-if="lowStockProducts.length === 0" class="empty-state">
+                        <el-icon><CircleCheck /></el-icon>
+                        <div>所有商品库存充足！</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 报表统计 -->
+            <div v-if="currentPage === 'reports'">
+                <div class="page-header">
+                    <div class="page-title">📈 报表统计</div>
+                    <el-date-picker
+                        v-model="reportDateRange"
+                        type="daterange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        @change="loadReports"
+                    />
+                </div>
+                
+                <div class="page-content">
+                    <el-tabs v-model="reportTab">
+                        <el-tab-pane label="销售报表" name="sales">
+                            <el-table :data="salesReport" style="width: 100%">
+                                <el-table-column prop="date" label="日期" width="120" />
+                                <el-table-column prop="orders" label="订单数" width="100" />
+                                <el-table-column prop="quantity" label="销售数量" width="120" />
+                                <el-table-column prop="total" label="销售额">
+                                    <template #default="scope">
+                                        <span style="color: #67c23a; font-weight: bold;">
+                                            ¥{{ scope.row.total.toFixed(2) }}
+                                        </span>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                        
+                        <el-tab-pane label="库存报表" name="inventory">
+                            <el-table :data="inventoryReport" style="width: 100%">
+                                <el-table-column prop="category" label="分类" />
+                                <el-table-column prop="product_count" label="商品数" width="100" />
+                                <el-table-column prop="total_stock" label="总库存" width="100" />
+                                <el-table-column prop="total_value" label="库存价值">
+                                    <template #default="scope">
+                                        ¥{{ scope.row.total_value.toFixed(2) }}
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                        
+                        <el-tab-pane label="进货报表" name="purchase">
+                            <el-table :data="purchaseReport" style="width: 100%">
+                                <el-table-column prop="supplier" label="供应商" />
+                                <el-table-column prop="order_count" label="进货次数" width="120" />
+                                <el-table-column prop="total_quantity" label="总数量" width="100" />
+                                <el-table-column prop="total_amount" label="总金额">
+                                    <template #default="scope">
+                                        <span style="color: #e6a23c; font-weight: bold;">
+                                            ¥{{ scope.row.total_amount.toFixed(2) }}
+                                        </span>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加/编辑商品弹窗 -->
+        <el-dialog v-model="showProductDialog" :title="editingProduct ? '编辑商品' : '添加商品'" width="500px">
+            <el-form :model="productForm" label-width="80px">
+                <el-form-item label="条码">
+                    <el-input v-model="productForm.barcode" placeholder="扫码或输入条码" />
+                </el-form-item>
+                <el-form-item label="名称">
+                    <el-input v-model="productForm.name" />
+                </el-form-item>
+                <el-form-item label="规格">
+                    <el-input v-model="productForm.spec" placeholder="如：500ml、10支装" />
+                </el-form-item>
+                <el-form-item label="单价">
+                    <el-input-number v-model="productForm.price" :min="0" :precision="2" style="width: 100%;" />
+                </el-form-item>
+                <el-form-item label="库存">
+                    <el-input-number v-model="productForm.stock" :min="0" style="width: 100%;" />
+                </el-form-item>
+                <el-form-item label="预警数量">
+                    <el-input-number v-model="productForm.min_stock" :min="0" style="width: 100%;" />
+                </el-form-item>
+                <el-form-item label="分类">
+                    <el-select v-model="productForm.category" style="width: 100%;">
+                        <el-option label="食品" value="食品" />
+                        <el-option label="饮料" value="饮料" />
+                        <el-option label="日用品" value="日用品" />
+                        <el-option label="烟草" value="烟草" />
+                        <el-option label="其他" value="其他" />
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <el-button @click="showProductDialog = false">取消</el-button>
+                <el-button type="primary" @click="saveProduct">保存</el-button>
+            </template>
+        </el-dialog>
+        
+        <!-- AI识别进货单弹窗 -->
+        <el-dialog v-model="showUploadDialog" title="AI识别进货单" width="600px">
+            <div class="upload-area" @click="triggerUpload">
+                <el-icon style="font-size: 48px; color: #667eea;"><Upload /></el-icon>
+                <div style="margin-top: 15px;">点击上传进货单图片</div>
+                <div style="color: #909399; font-size: 12px; margin-top: 5px;">支持 JPG、PNG、PDF 格式</div>
+            </div>
+            <input type="file" ref="fileInput" style="display: none;" accept="image/*" @change="handleFileUpload" />
+            
+            <div v-if="recognizedOrder" style="margin-top: 20px;">
+                <el-alert type="success" title="识别成功" :closable="false" />
+                
+                <div style="margin-top: 15px;">
+                    <h4>识别结果：</h4>
+                    <el-table :data="recognizedOrder.items" size="small" style="margin-top: 10px;">
+                        <el-table-column prop="product_name" label="商品名称" />
+                        <el-table-column prop="quantity" label="数量" width="80" />
+                        <el-table-column prop="unit_price" label="单价" width="80">
+                            <template #default="scope">
+                                ¥{{ scope.row.unit_price }}
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    
+                    <div style="text-align: right; margin-top: 15px;">
+                        <el-button type="primary" @click="confirmRecognizedOrder">确认入库</el-button>
+                    </div>
+                </div>
+            </div>
+        </el-dialog>
+        
+        <!-- 快速入库弹窗 -->
+        <el-dialog v-model="showQuickPurchase" title="快速入库" width="400px">
+            <div v-if="quickPurchaseProduct">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 18px; font-weight: bold;">{{ quickPurchaseProduct.name }}</div>
+                    <div style="color: #909399;">当前库存: {{ quickPurchaseProduct.stock }}</div>
+                </div>
+                
+                <el-form-item label="入库数量">
+                    <el-input-number v-model="quickPurchaseQuantity" :min="1" style="width: 100%;" />
+                </el-form-item>
+            </div>
+            <template #footer>
+                <el-button @click="showQuickPurchase = false">取消</el-button>
+                <el-button type="primary" @click="confirmQuickPurchase">确认入库</el-button>
+            </template>
+        </el-dialog>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.15/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-plus@2.4.4/dist/index.full.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script>
+        const { createApp, ref, computed, onMounted, nextTick } = Vue;
+        const { ElMessage, ElMessageBox } = ElementPlus;
+        
+        const app = createApp({
+            setup() {
+                const API_BASE = '/api';
+                
+                // 状态
+                const currentPage = ref('dashboard');
+                const currentTime = ref('');
+                
+                // 数据
+                const products = ref([]);
+                const lowStockProducts = ref([]);
+                const purchaseRecords = ref([]);
+                const salesReport = ref([]);
+                const inventoryReport = ref([]);
+                const purchaseReport = ref([]);
+                
+                // 统计
+                const stats = ref({
+                    totalProducts: 0,
+                    todaySales: 0,
+                    lowStockCount: 0,
+                    monthlyPurchase: 0
+                });
+                
+                // 搜索和筛选
+                const productSearch = ref('');
+                const categoryFilter = ref('');
+                
+                // 商品表单
+                const showProductDialog = ref(false);
+                const editingProduct = ref(null);
+                const productForm = ref({
+                    barcode: '',
+                    name: '',
+                    spec: '',
+                    price: 0,
+                    stock: 0,
+                    min_stock: 10,
+                    category: '食品'
+                });
+                
+                // 扫码
+                const scanBarcode = ref('');
+                const currentProduct = ref(null);
+                const saleQuantity = ref(1);
+                
+                // 进货
+                const purchaseTab = ref('manual');
+                const showUploadDialog = ref(false);
+                const purchaseForm = ref({
+                    productId: null,
+                    quantity: 1,
+                    unitPrice: 0
+                });
+                
+                // 预警
+                const showQuickPurchase = ref(false);
+                const quickPurchaseProduct = ref(null);
+                const quickPurchaseQuantity = ref(10);
+                
+                // 报表
+                const reportTab = ref('sales');
+                const reportDateRange = ref([]);
+                
+                // 识别
+                const recognizedOrder = ref(null);
+                
+                // 计算属性
+                const filteredProducts = computed(() => {
+                    return products.value.filter(p => {
+                        const matchSearch = !productSearch.value || 
+                            p.name.includes(productSearch.value) || 
+                            p.barcode.includes(productSearch.value);
+                        const matchCategory = !categoryFilter.value || p.category === categoryFilter.value;
+                        return matchSearch && matchCategory;
+                    });
+                });
+                
+                // 方法
+                const updateTime = () => {
+                    const now = new Date();
+                    currentTime.value = now.toLocaleString('zh-CN', { 
+                        year: 'numeric', 
+                        month: '2-digit', 
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                };
+                
+                const loadProducts = async () => {
+                    try {
+                        const res = await fetch(`${API_BASE}/products`);
+                        products.value = await res.json();
+                        stats.value.totalProducts = products.value.length;
+                    } catch (e) {
+                        console.error('加载商品失败', e);
+                    }
+                };
+                
+                const loadLowStock = async () => {
+                    try {
+                        const res = await fetch(`${API_BASE}/products/low-stock`);
+                        lowStockProducts.value = await res.json();
+                        stats.value.lowStockCount = lowStockProducts.value.length;
+                    } catch (e) {
+                        console.error('加载预警失败', e);
+                    }
+                };
+                
+                const loadStats = async () => {
+                    try {
+                        const res = await fetch(`${API_BASE}/reports/sales`);
+                        const data = await res.json();
+                        if (data.length > 0) {
+                            stats.value.todaySales = data[0].total || 0;
+                        }
+                    } catch (e) {
+                        console.error('加载统计失败', e);
+                    }
+                };
+                
+                const loadPurchaseRecords = async () => {
+                    try {
+                        const res = await fetch(`${API_BASE}/reports/purchases`);
+                        purchaseRecords.value = await res.json();
+                    } catch (e) {
+                        console.error('加载进货记录失败', e);
+                    }
+                };
+                
+                const queryProduct = async () => {
+                    if (!scanBarcode.value) return;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/products/barcode/${scanBarcode.value}`);
+                        if (res.ok) {
+                            currentProduct.value = await res.json();
+                            saleQuantity.value = 1;
+                        } else {
+                            ElMessage.error('商品未找到');
+                            currentProduct.value = null;
+                        }
+                    } catch (e) {
+                        ElMessage.error('查询失败');
+                    }
+                    
+                    scanBarcode.value = '';
+                };
+                
+                const confirmSale = async () => {
+                    if (!currentProduct.value) return;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/sales`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                product_id: currentProduct.value.id,
+                                quantity: saleQuantity.value
+                            })
+                        });
+                        
+                        if (res.ok) {
+                            const result = await res.json();
+                            ElMessage.success(`销售成功: ¥${result.total_price}`);
+                            currentProduct.value = null;
+                            saleQuantity.value = 1;
+                            loadProducts();
+                            loadLowStock();
+                        } else {
+                            const err = await res.json();
+                            ElMessage.error(err.detail || '销售失败');
+                        }
+                    } catch (e) {
+                        ElMessage.error('销售失败');
+                    }
+                };
+                
+                const saveProduct = async () => {
+                    try {
+                        const url = editingProduct.value 
+                            ? `${API_BASE}/products/${editingProduct.value.id}`
+                            : `${API_BASE}/products`;
+                        const method = editingProduct.value ? 'PUT' : 'POST';
+                        
+                        const res = await fetch(url, {
+                            method,
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(productForm.value)
+                        });
+                        
+                        if (res.ok) {
+                            ElMessage.success('保存成功');
+                            showProductDialog.value = false;
+                            loadProducts();
+                            resetProductForm();
+                        } else {
+                            const err = await res.json();
+                            ElMessage.error(err.detail || '保存失败');
+                        }
+                    } catch (e) {
+                        ElMessage.error('保存失败');
+                    }
+                };
+                
+                const resetProductForm = () => {
+                    productForm.value = {
+                        barcode: '',
+                        name: '',
+                        spec: '',
+                        price: 0,
+                        stock: 0,
+                        min_stock: 10,
+                        category: '食品'
+                    };
+                    editingProduct.value = null;
+                };
+                
+                const editProduct = (product) => {
+                    editingProduct.value = product;
+                    productForm.value = {...product};
+                    showProductDialog.value = true;
+                };
+                
+                const deleteProduct = async (id) => {
+                    try {
+                        await ElMessageBox.confirm('确定删除此商品?', '提示', {
+                            type: 'warning'
+                        });
+                        
+                        const res = await fetch(`${API_BASE}/products/${id}`, {
+                            method: 'DELETE'
+                        });
+                        
+                        if (res.ok) {
+                            ElMessage.success('删除成功');
+                            loadProducts();
+                        }
+                    } catch (e) {
+                        if (e !== 'cancel') {
+                            ElMessage.error('删除失败');
+                        }
+                    }
+                };
+                
+                const submitPurchase = async () => {
+                    if (!purchaseForm.value.productId) {
+                        ElMessage.warning('请选择商品');
+                        return;
+                    }
+                    
+                    try {
+                        // 先找到商品
+                        const product = products.value.find(p => p.id === purchaseForm.value.productId);
+                        
+                        const res = await fetch(`${API_BASE}/products/${purchaseForm.value.productId}/stock`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                quantity: purchaseForm.value.quantity,
+                                action: 'add'
+                            })
+                        });
+                        
+                        if (res.ok) {
+                            ElMessage.success('入库成功');
+                            purchaseForm.value = { productId: null, quantity: 1, unitPrice: 0 };
+                            loadProducts();
+                            loadLowStock();
+                        }
+                    } catch (e) {
+                        ElMessage.error('入库失败');
+                    }
+                };
+                
+                const quickPurchase = (product) => {
+                    quickPurchaseProduct.value = product;
+                    quickPurchaseQuantity.value = 10;
+                    showQuickPurchase.value = true;
+                };
+                
+                const confirmQuickPurchase = async () => {
+                    if (!quickPurchaseProduct.value) return;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/products/${quickPurchaseProduct.value.id}/stock`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                quantity: quickPurchaseQuantity.value,
+                                action: 'add'
+                            })
+                        });
+                        
+                        if (res.ok) {
+                            ElMessage.success('入库成功');
+                            showQuickPurchase.value = false;
+                            loadProducts();
+                            loadLowStock();
+                        }
+                    } catch (e) {
+                        ElMessage.error('入库失败');
+                    }
+                };
+                
+                const loadReports = async () => {
+                    const params = new URLSearchParams();
+                    if (reportDateRange.value && reportDateRange.value.length === 2) {
+                        params.append('start_date', reportDateRange.value[0].toISOString());
+                        params.append('end_date', reportDateRange.value[1].toISOString());
+                    }
+                    
+                    try {
+                        const [salesRes, invRes, purRes] = await Promise.all([
+                            fetch(`${API_BASE}/reports/sales?${params}`),
+                            fetch(`${API_BASE}/reports/inventory?${params}`),
+                            fetch(`${API_BASE}/reports/purchases?${params}`)
+                        ]);
+                        
+                        salesReport.value = await salesRes.json();
+                        inventoryReport.value = await invRes.json();
+                        purchaseReport.value = await purRes.json();
+                    } catch (e) {
+                        console.error('加载报表失败', e);
+                    }
+                };
+                
+                const triggerUpload = () => {
+                    document.querySelector('input[type="file"]').click();
+                };
+                
+                const handleFileUpload = async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    ElMessage.info('AI 识别中，请稍候...');
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/recognize-order`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const result = await res.json();
+                        
+                        // 模拟识别结果（实际需要接入 AI）
+                        recognizedOrder.value = {
+                            supplier: result.supplier || '测试供应商',
+                            items: [
+                                { product_name: '中华（软）', quantity: 2, unit_price: 58 },
+                                { product_name: '利群（新版）', quantity: 3, unit_price: 26 }
+                            ]
+                        };
+                        
+                        ElMessage.success('识别完成，请确认商品信息');
+                    } catch (e) {
+                        ElMessage.error('识别失败');
+                    }
+                };
+                
+                const confirmRecognizedOrder = async () => {
+                    if (!recognizedOrder.value) return;
+                    
+                    try {
+                        const res = await fetch(`${API_BASE}/purchase-orders`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                supplier: recognizedOrder.value.supplier,
+                                items: recognizedOrder.value.items
+                            })
+                        });
+                        
+                        if (res.ok) {
+                            const result = await res.json();
+                            ElMessage.success(`入库成功，总金额: ¥${result.total_amount}`);
+                            showUploadDialog.value = false;
+                            recognizedOrder.value = null;
+                            loadProducts();
+                            loadLowStock();
+                            loadPurchaseRecords();
+                        }
+                    } catch (e) {
+                        ElMessage.error('入库失败');
+                    }
+                };
+                
+                // 初始化
+                onMounted(() => {
+                    updateTime();
+                    setInterval(updateTime, 1000);
+                    
+                    loadProducts();
+                    loadLowStock();
+                    loadStats();
+                    loadReports();
+                    
+                    // 注册图标组件
+                    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+                        app.component(key, component);
+                    }
+                });
+                
+                return {
+                    currentPage,
+                    currentTime,
+                    products,
+                    filteredProducts,
+                    lowStockProducts,
+                    purchaseRecords,
+                    salesReport,
+                    inventoryReport,
+                    purchaseReport,
+                    stats,
+                    productSearch,
+                    categoryFilter,
+                    showProductDialog,
+                    editingProduct,
+                    productForm,
+                    scanBarcode,
+                    currentProduct,
+                    saleQuantity,
+                    purchaseTab,
+                    showUploadDialog,
+                    purchaseForm,
+                    showQuickPurchase,
+                    quickPurchaseProduct,
+                    quickPurchaseQuantity,
+                    reportTab,
+                    reportDateRange,
+                    recognizedOrder,
+                    queryProduct,
+                    confirmSale,
+                    saveProduct,
+                    editProduct,
+                    deleteProduct,
+                    submitPurchase,
+                    quickPurchase,
+                    confirmQuickPurchase,
+                    loadReports,
+                    triggerUpload,
+                    handleFileUpload,
+                    confirmRecognizedOrder
+                };
+            }
+        });
+        
+        app.use(ElementPlus);
+        app.mount('#app');
+    </script>
+</body>
+</html>
