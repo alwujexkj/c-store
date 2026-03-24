@@ -10,23 +10,21 @@
         
         .app { display: flex; min-height: 100vh; }
         
-        /* 侧边栏 */
-        .sidebar { width: 200px; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 20px 0; position: fixed; height: 100vh; overflow-y: auto; }
-        .logo { text-align: center; padding: 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; }
-        .menu-item { padding: 14px 20px; cursor: pointer; display: flex; align-items: center; transition: all 0.2s; color: rgba(255,255,255,0.7); }
-        .menu-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
-        .menu-item.active { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); color: #fff; border-left: 3px solid #fff; }
+        /* Sidebar */
+        .sidebar { width: 200px; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); color: #fff; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo { text-align: center; padding: 20px; font-size: 18px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .menu-item { padding: 14px 20px; cursor: pointer; display: flex; align-items: center; color: rgba(255,255,255,0.7); }
+        .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.1); color: #fff; }
+        .menu-item.active { border-left: 3px solid #fff; }
         .menu-item span { margin-left: 10px; }
         
-        /* 主内容 */
+        /* Main */
         .main { flex: 1; margin-left: 200px; padding: 20px; }
-        
         .page-header { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
         .page-title { font-size: 22px; font-weight: 600; color: #1a1a2e; }
-        
         .page-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         
-        /* 统计卡片 */
+        /* Stats */
         .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { padding: 20px; border-radius: 10px; color: #fff; }
         .stat-card.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
@@ -36,33 +34,32 @@
         .stat-value { font-size: 28px; font-weight: bold; margin: 8px 0; }
         .stat-label { font-size: 14px; opacity: 0.9; }
         
-        /* 表格 */
+        /* Table */
         .table-container { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: #f8f9fa; font-weight: 600; color: #333; }
         tr:hover { background: #f8f9fa; }
         
-        /* 按钮 */
+        /* Buttons */
         .btn { padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
         .btn-primary { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); color: #fff; }
         .btn-danger { background: #f56c6c; color: #fff; }
         .btn-success { background: #67c23a; color: #fff; }
         .btn-sm { padding: 5px 10px; font-size: 12px; }
         
-        /* 输入框 */
+        /* Inputs */
         .input { padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; width: 100%; }
         .input:focus { outline: none; border-color: #667eea; }
         
-        /* 表单 */
+        /* Form */
         .form-group { margin-bottom: 15px; }
         .form-label { display: block; margin-bottom: 5px; font-weight: 500; color: #333; }
         
-        /* 搜索栏 */
+        /* Search */
         .search-bar { display: flex; gap: 10px; margin-bottom: 20px; }
-        .search-bar .input { max-width: 300px; }
         
-        /* 商品卡片 */
+        /* Product Card */
         .product-card { display: flex; align-items: center; padding: 15px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px; }
         .product-info { flex: 1; }
         .product-name { font-weight: 600; font-size: 16px; color: #333; }
@@ -71,109 +68,98 @@
         .product-stock { color: #67c23a; margin-top: 5px; }
         .product-stock.low { color: #f56c6c; }
         
-        /* 扫码区 */
+        /* Scan */
         .scan-area { text-align: center; padding: 50px 20px; background: #fafafa; border-radius: 10px; border: 2px dashed #ddd; }
         .scan-input { font-size: 20px; padding: 15px; text-align: center; width: 300px; letter-spacing: 3px; }
         
-        /* 弹窗 */
+        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; }
         .modal.show { display: flex; }
-        .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+        .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .modal-title { font-size: 18px; font-weight: 600; }
         .modal-close { cursor: pointer; font-size: 24px; color: #999; }
         
-        /* 空状态 */
+        /* Empty */
         .empty { text-align: center; padding: 60px 20px; color: #999; }
         
-        /* 标签 */
+        /* Tag */
         .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
-        .tag-success { background: #f0f9eb; color: #67c23a; }
-        .tag-warning { background: #fdf6ec; color: #e6a23c; }
         .tag-danger { background: #fef0f0; color: #f56c6c; }
         
-        /* 数量选择 */
+        /* Qty */
         .qty-control { display: flex; align-items: center; gap: 10px; margin: 20px 0; justify-content: center; }
         .qty-btn { width: 40px; height: 40px; border: 1px solid #ddd; background: #fff; border-radius: 6px; cursor: pointer; font-size: 20px; }
         .qty-btn:hover { background: #f5f7fa; }
         .qty-value { font-size: 24px; font-weight: bold; min-width: 50px; text-align: center; }
         
-        @media (max-width: 768px) {
-            .sidebar { width: 60px; }
-            .sidebar .logo span, .sidebar .menu-item span { display: none; }
-            .sidebar .menu-item { justify-content: center; }
-            .main { margin-left: 60px; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div id="app" class="app">
-        <!-- 侧边栏 -->
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">🏪 便利店管理</div>
-            <div class="menu-item" :class="{active: page === 'dashboard'}" @click="page = 'dashboard'">
+            <div class="menu-item active" data-page="dashboard" onclick="showPage('dashboard')">
                 <span>📊</span><span>数据概览</span>
             </div>
-            <div class="menu-item" :class="{active: page === 'products'}" @click="page = 'products'">
+            <div class="menu-item" data-page="products" onclick="showPage('products')">
                 <span>🏷️</span><span>商品管理</span>
             </div>
-            <div class="menu-item" :class="{active: page === 'scan'}" @click="page = 'scan'">
+            <div class="menu-item" data-page="scan" onclick="showPage('scan')">
                 <span>📱</span><span>扫码销售</span>
             </div>
-            <div class="menu-item" :class="{active: page === 'purchase'}" @click="page = 'purchase'">
+            <div class="menu-item" data-page="purchase" onclick="showPage('purchase')">
                 <span>📦</span><span>进货入库</span>
             </div>
-            <div class="menu-item" :class="{active: page === 'warning'}" @click="page = 'warning'">
+            <div class="menu-item" data-page="warning" onclick="showPage('warning')">
                 <span>⚠️</span><span>库存预警</span>
             </div>
-            <div class="menu-item" :class="{active: page === 'reports'}" @click="page = 'reports'">
+            <div class="menu-item" data-page="reports" onclick="showPage('reports')">
                 <span>📈</span><span>报表统计</span>
             </div>
         </div>
         
-        <!-- 主内容 -->
+        <!-- Main Content -->
         <div class="main">
             
-            <!-- 仪表盘 -->
-            <div v-if="page === 'dashboard'">
+            <!-- Dashboard -->
+            <div id="page-dashboard">
                 <div class="page-header">
                     <div class="page-title">📊 数据概览</div>
-                    <div style="color: #999;">{{ currentTime }}</div>
+                    <div id="currentTime" style="color: #999;"></div>
                 </div>
-                
                 <div class="stats">
                     <div class="stat-card blue">
                         <div class="stat-label">商品总数</div>
-                        <div class="stat-value">{{ products.length }}</div>
+                        <div class="stat-value" id="statProducts">0</div>
                     </div>
                     <div class="stat-card orange">
                         <div class="stat-label">今日销售额</div>
-                        <div class="stat-value">¥{{ todaySales }}</div>
+                        <div class="stat-value" id="statSales">¥0</div>
                     </div>
                     <div class="stat-card green">
                         <div class="stat-label">库存预警</div>
-                        <div class="stat-value">{{ lowStockProducts.length }}</div>
+                        <div class="stat-value" id="statWarning">0</div>
                     </div>
                     <div class="stat-card yellow">
                         <div class="stat-label">本月进货</div>
-                        <div class="stat-value">¥{{ monthlyPurchase }}</div>
+                        <div class="stat-value">¥0</div>
                     </div>
                 </div>
             </div>
             
-            <!-- 商品管理 -->
-            <div v-if="page === 'products'">
+            <!-- Products -->
+            <div id="page-products" class="hidden">
                 <div class="page-header">
                     <div class="page-title">🏷️ 商品管理</div>
-                    <button class="btn btn-primary" @click="showProductModal = true">+ 添加商品</button>
+                    <button class="btn btn-primary" onclick="openProductModal()">+ 添加商品</button>
                 </div>
-                
                 <div class="page-content">
                     <div class="search-bar">
-                        <input type="text" class="input" v-model="searchText" placeholder="搜索商品名称/条码...">
+                        <input type="text" class="input" id="searchText" placeholder="搜索商品名称/条码..." onkeyup="renderProducts()">
                     </div>
-                    
                     <div class="table-container">
                         <table>
                             <thead>
@@ -187,122 +173,85 @@
                                     <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr v-for="p in filteredProducts" :key="p.id">
-                                    <td>{{ p.barcode }}</td>
-                                    <td>{{ p.name }}</td>
-                                    <td>{{ p.spec || '-' }}</td>
-                                    <td>¥{{ p.price.toFixed(2) }}</td>
-                                    <td :style="{color: p.stock <= p.min_stock ? '#f56c6c' : '#67c23a'}">{{ p.stock }}</td>
-                                    <td>{{ p.category }}</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-sm" @click="editProduct(p)">编辑</button>
-                                        <button class="btn btn-danger btn-sm" @click="deleteProduct(p.id)">删除</button>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="productsTable"></tbody>
                         </table>
                     </div>
-                    
-                    <div v-if="filteredProducts.length === 0" class="empty">暂无商品</div>
+                    <div id="noProducts" class="empty hidden">暂无商品</div>
                 </div>
             </div>
             
-            <!-- 扫码销售 -->
-            <div v-if="page === 'scan'">
+            <!-- Scan -->
+            <div id="page-scan" class="hidden">
                 <div class="page-header">
                     <div class="page-title">📱 扫码销售</div>
                 </div>
-                
                 <div class="page-content">
                     <div class="scan-area">
                         <div style="font-size: 48px; margin-bottom: 15px;">📷</div>
                         <h3>扫码枪扫描商品条形码</h3>
                         <p style="color: #999; margin: 10px 0 20px;">或手动输入条码后按回车</p>
-                        <input type="text" class="scan-input" v-model="scanBarcode" @keyup.enter="queryProduct" placeholder="输入条码" autofocus>
+                        <input type="text" class="scan-input" id="scanBarcode" placeholder="输入条码" onkeyup="if(event.key==='Enter')queryProduct()">
                     </div>
-                    
-                    <div v-if="currentProduct" style="margin-top: 20px;">
+                    <div id="scanResult" class="hidden" style="margin-top: 20px;">
                         <div class="product-card">
                             <div class="product-info">
-                                <div class="product-name">{{ currentProduct.name }}</div>
-                                <div class="product-spec">{{ currentProduct.spec }}</div>
-                                <div class="product-stock" :class="{low: currentProduct.stock <= currentProduct.min_stock}">库存: {{ currentProduct.stock }}</div>
+                                <div class="product-name" id="scanName"></div>
+                                <div class="product-spec" id="scanSpec"></div>
+                                <div class="product-stock" id="scanStock"></div>
                             </div>
-                            <div class="product-price">¥{{ currentProduct.price.toFixed(2) }}</div>
+                            <div class="product-price" id="scanPrice"></div>
                         </div>
-                        
                         <div class="qty-control">
-                            <button class="qty-btn" @click="saleQuantity > 1 && saleQuantity--">-</button>
-                            <div class="qty-value">{{ saleQuantity }}</div>
-                            <button class="qty-btn" @click="saleQuantity++">+</button>
+                            <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                            <div class="qty-value" id="saleQty">1</div>
+                            <button class="qty-btn" onclick="changeQty(1)">+</button>
                         </div>
-                        
                         <div style="text-align: center;">
-                            <button class="btn btn-success" style="font-size: 18px; padding: 12px 40px;" @click="confirmSale">
-                                确认销售 ¥{{ (currentProduct.price * saleQuantity).toFixed(2) }}
+                            <button class="btn btn-success" style="font-size: 18px; padding: 12px 40px;" onclick="confirmSale()">
+                                确认销售 ¥<span id="saleTotal">0</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- 进货入库 -->
-            <div v-if="page === 'purchase'">
+            <!-- Purchase -->
+            <div id="page-purchase" class="hidden">
                 <div class="page-header">
                     <div class="page-title">📦 进货入库</div>
                 </div>
-                
                 <div class="page-content">
                     <h3 style="margin-bottom: 15px;">手动入库</h3>
                     <div class="form-group">
                         <label class="form-label">选择商品</label>
-                        <select class="input" v-model="purchaseForm.productId">
+                        <select class="input" id="purchaseProduct">
                             <option value="">请选择商品</option>
-                            <option v-for="p in products" :key="p.id" :value="p.id">{{ p.name }} ({{ p.spec }})</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">入库数量</label>
-                        <input type="number" class="input" v-model.number="purchaseForm.quantity" min="1">
+                        <input type="number" class="input" id="purchaseQty" value="1" min="1">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">进货单价</label>
-                        <input type="number" class="input" v-model.number="purchaseForm.unitPrice" step="0.01">
-                    </div>
-                    <button class="btn btn-primary" @click="submitPurchase">确认入库</button>
+                    <button class="btn btn-primary" onclick="submitPurchase()">确认入库</button>
                 </div>
             </div>
             
-            <!-- 库存预警 -->
-            <div v-if="page === 'warning'">
+            <!-- Warning -->
+            <div id="page-warning" class="hidden">
                 <div class="page-header">
                     <div class="page-title">⚠️ 库存预警</div>
                 </div>
-                
                 <div class="page-content">
-                    <div v-if="lowStockProducts.length > 0">
-                        <div class="product-card" v-for="p in lowStockProducts" :key="p.id">
-                            <div class="product-info">
-                                <div class="product-name">{{ p.name }}</div>
-                                <div class="product-spec">最低库存: {{ p.min_stock }}</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div class="tag tag-danger">库存不足</div>
-                                <div style="font-size: 20px; color: #f56c6c; font-weight: bold; margin-top: 5px;">{{ p.stock }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="empty">✅ 所有商品库存充足！</div>
+                    <div id="warningList"></div>
+                    <div id="noWarning" class="empty hidden">✅ 所有商品库存充足！</div>
                 </div>
             </div>
             
-            <!-- 报表 -->
-            <div v-if="page === 'reports'">
+            <!-- Reports -->
+            <div id="page-reports" class="hidden">
                 <div class="page-header">
                     <div class="page-title">📈 报表统计</div>
                 </div>
-                
                 <div class="page-content">
                     <h3 style="margin-bottom: 15px;">销售报表（近7天）</h3>
                     <div class="table-container">
@@ -315,55 +264,49 @@
                                     <th>销售额</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr v-for="s in salesReport" :key="s.date">
-                                    <td>{{ s.date }}</td>
-                                    <td>{{ s.orders }}</td>
-                                    <td>{{ s.quantity }}</td>
-                                    <td style="color: #67c23a; font-weight: bold;">¥{{ s.total.toFixed(2) }}</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="salesReportTable"></tbody>
                         </table>
                     </div>
-                    <div v-if="salesReport.length === 0" class="empty">暂无销售数据</div>
+                    <div id="noSalesReport" class="empty hidden">暂无销售数据</div>
                 </div>
             </div>
         </div>
         
-        <!-- 添加/编辑商品弹窗 -->
-        <div class="modal" :class="{show: showProductModal}">
+        <!-- Product Modal -->
+        <div class="modal" id="productModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">{{ editingProduct ? '编辑商品' : '添加商品' }}</div>
-                    <div class="modal-close" @click="closeProductModal">&times;</div>
+                    <div class="modal-title" id="modalTitle">添加商品</div>
+                    <div class="modal-close" onclick="closeProductModal()">&times;</div>
                 </div>
+                <input type="hidden" id="editProductId">
                 <div class="form-group">
                     <label class="form-label">条码 *</label>
-                    <input type="text" class="input" v-model="productForm.barcode" placeholder="扫码或输入条码">
+                    <input type="text" class="input" id="productBarcode" placeholder="扫码或输入条码">
                 </div>
                 <div class="form-group">
                     <label class="form-label">名称 *</label>
-                    <input type="text" class="input" v-model="productForm.name" placeholder="商品名称">
+                    <input type="text" class="input" id="productName" placeholder="商品名称">
                 </div>
                 <div class="form-group">
                     <label class="form-label">规格</label>
-                    <input type="text" class="input" v-model="productForm.spec" placeholder="如：500ml">
+                    <input type="text" class="input" id="productSpec" placeholder="如：500ml">
                 </div>
                 <div class="form-group">
                     <label class="form-label">单价 *</label>
-                    <input type="number" class="input" v-model.number="productForm.price" step="0.01">
+                    <input type="number" class="input" id="productPrice" step="0.01">
                 </div>
                 <div class="form-group">
                     <label class="form-label">库存</label>
-                    <input type="number" class="input" v-model.number="productForm.stock">
+                    <input type="number" class="input" id="productStock" value="0">
                 </div>
                 <div class="form-group">
                     <label class="form-label">预警数量</label>
-                    <input type="number" class="input" v-model.number="productForm.min_stock">
+                    <input type="number" class="input" id="productMinStock" value="10">
                 </div>
                 <div class="form-group">
                     <label class="form-label">分类</label>
-                    <select class="input" v-model="productForm.category">
+                    <select class="input" id="productCategory">
                         <option value="食品">食品</option>
                         <option value="饮料">饮料</option>
                         <option value="日用品">日用品</option>
@@ -371,181 +314,326 @@
                         <option value="其他">其他</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" style="width: 100%;" @click="saveProduct">保存</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="saveProduct()">保存</button>
             </div>
         </div>
     </div>
 
     <script>
-        const API_BASE = '/api';
+        // Config
         const SUPABASE_URL = 'https://bpnflitpdjfmcyejrstf.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwbmZsaXRwZGpmbWN5ZWpyc3RmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzgwMzYsImV4cCI6MjA4OTg1NDAzNn0.BHPfWxaHdyS9n9MOx9w4b1hJRFCV-TJYucNGqfUrTnI';
         
-        const app = Vue.createApp({
-            data() {
-                return {
-                    page: 'dashboard',
-                    currentTime: '',
-                    products: [],
-                    salesReport: [],
-                    searchText: '',
-                    scanBarcode: '',
-                    currentProduct: null,
-                    saleQuantity: 1,
-                    showProductModal: false,
-                    editingProduct: null,
-                    productForm: {
-                        barcode: '', name: '', spec: '', price: 0, stock: 0, min_stock: 10, category: '食品'
-                    },
-                    purchaseForm: { productId: '', quantity: 1, unitPrice: 0 }
-                }
-            },
-            computed: {
-                filteredProducts() {
-                    if (!this.searchText) return this.products;
-                    const s = this.searchText.toLowerCase();
-                    return this.products.filter(p => p.name.toLowerCase().includes(s) || p.barcode.includes(s));
-                },
-                lowStockProducts() {
-                    return this.products.filter(p => p.stock <= p.min_stock);
-                },
-                todaySales() {
-                    const today = new Date().toISOString().split('T')[0];
-                    const todayData = this.salesReport.find(s => s.date === today);
-                    return todayData ? todayData.total.toFixed(2) : '0.00';
-                },
-                monthlyPurchase() {
-                    return '0.00';
-                }
-            },
-            methods: {
-                async api(endpoint, options = {}) {
-                    const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
-                    const headers = {
-                        'apikey': SUPABASE_KEY,
-                        'Authorization': `Bearer ${SUPABASE_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': options.prefer || 'return=representation'
-                    };
-                    const res = await fetch(url, { ...options, headers });
-                    if (!res.ok) {
-                        const err = await res.text();
-                        throw new Error(err);
-                    }
-                    if (options.method === 'POST' || options.method === 'PATCH' || options.method === 'PUT') {
-                        return res.json();
-                    }
-                    const data = await res.json();
-                    return data;
-                },
-                async loadProducts() {
-                    this.products = await this.api('products?select=*&order=created_at.desc');
-                },
-                async loadSalesReport() {
-                    this.salesReport = await this.api('sales?select=created_at,total_price,quantity&order=created_at.desc');
-                    // 按日期汇总
-                    const byDate = {};
-                    this.salesReport.forEach(s => {
-                        const date = s.created_at.split('T')[0];
-                        if (!byDate[date]) byDate[date] = { date, total: 0, quantity: 0, orders: 0 };
-                        byDate[date].total += s.total_price;
-                        byDate[date].quantity += s.quantity;
-                        byDate[date].orders++;
-                    });
-                    this.salesReport = Object.values(byDate).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 7);
-                },
-                updateTime() {
-                    this.currentTime = new Date().toLocaleString('zh-CN');
-                },
-                async queryProduct() {
-                    if (!this.scanBarcode) return;
-                    const [p] = await this.api(`products?barcode=eq.${this.scanBarcode}&select=*`);
-                    if (p) {
-                        this.currentProduct = p;
-                        this.saleQuantity = 1;
-                    } else {
-                        alert('商品未找到');
-                    }
-                    this.scanBarcode = '';
-                },
-                async confirmSale() {
-                    if (!this.currentProduct) return;
-                    // 记录销售
-                    await this.api('sales', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            product_id: this.currentProduct.id,
-                            quantity: this.saleQuantity,
-                            total_price: this.currentProduct.price * this.saleQuantity
-                        })
-                    });
-                    // 更新库存
-                    await this.api(`products?id=eq.${this.currentProduct.id}`, {
-                        method: 'PATCH',
-                        body: JSON.stringify({ stock: this.currentProduct.stock - this.saleQuantity })
-                    });
-                    alert('销售成功！');
-                    this.currentProduct = null;
-                    this.loadProducts();
-                    this.loadSalesReport();
-                },
-                editProduct(p) {
-                    this.editingProduct = p;
-                    this.productForm = { ...p };
-                    this.showProductModal = true;
-                },
-                closeProductModal() {
-                    this.showProductModal = false;
-                    this.editingProduct = null;
-                    this.productForm = { barcode: '', name: '', spec: '', price: 0, stock: 0, min_stock: 10, category: '食品' };
-                },
-                async saveProduct() {
-                    if (!this.productForm.barcode || !this.productForm.name) {
-                        alert('请填写必填项');
-                        return;
-                    }
-                    if (this.editingProduct) {
-                        await this.api(`products?id=eq.${this.editingProduct.id}`, {
-                            method: 'PATCH',
-                            body: JSON.stringify(this.productForm)
-                        });
-                    } else {
-                        await this.api('products', {
-                            method: 'POST',
-                            body: JSON.stringify(this.productForm)
-                        });
-                    }
-                    this.closeProductModal();
-                    this.loadProducts();
-                },
-                async deleteProduct(id) {
-                    if (!confirm('确定删除？')) return;
-                    await this.api(`products?id=eq.${id}`, { method: 'DELETE' });
-                    this.loadProducts();
-                },
-                async submitPurchase() {
-                    if (!this.purchaseForm.productId) {
-                        alert('请选择商品');
-                        return;
-                    }
-                    const product = this.products.find(p => p.id === this.purchaseForm.productId);
-                    await this.api(`products?id=eq.${product.id}`, {
-                        method: 'PATCH',
-                        body: JSON.stringify({ stock: product.stock + this.purchaseForm.quantity })
-                    });
-                    alert('入库成功！');
-                    this.purchaseForm = { productId: '', quantity: 1, unitPrice: 0 };
-                    this.loadProducts();
-                }
-            },
-            mounted() {
-                this.updateTime();
-                setInterval(this.updateTime, 1000);
-                this.loadProducts();
-                this.loadSalesReport();
+        // State
+        let products = [];
+        let salesReport = [];
+        let currentProduct = null;
+        let saleQty = 1;
+        
+        // API
+        async function api(endpoint, options = {}) {
+            const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+            const headers = {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': options.prefer || 'return=representation'
+            };
+            const res = await fetch(url, { ...options, headers });
+            if (!res.ok) {
+                const err = await res.text();
+                throw new Error(err);
             }
-        });
-        app.mount('#app');
+            if (options.method === 'POST' || options.method === 'PATCH' || options.method === 'PUT') {
+                return res.json();
+            }
+            if (options.method === 'DELETE') return {};
+            return res.json();
+        }
+        
+        // Load Data
+        async function loadProducts() {
+            products = await api('products?select=*&order=created_at.desc');
+            renderProducts();
+            updateStats();
+            updatePurchaseSelect();
+        }
+        
+        async function loadSalesReport() {
+            const data = await api('sales?select=created_at,total_price,quantity&order=created_at.desc');
+            const byDate = {};
+            data.forEach(s => {
+                const date = s.created_at.split('T')[0];
+                if (!byDate[date]) byDate[date] = { date, total: 0, quantity: 0, orders: 0 };
+                byDate[date].total += s.total_price;
+                byDate[date].quantity += s.quantity;
+                byDate[date].orders++;
+            });
+            salesReport = Object.values(byDate).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 7);
+            renderSalesReport();
+        }
+        
+        // Update Time
+        function updateTime() {
+            document.getElementById('currentTime').textContent = new Date().toLocaleString('zh-CN');
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Navigation
+        function showPage(page) {
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+            document.querySelectorAll('#app > .main > div').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`page-${page}`).classList.remove('hidden');
+        }
+        
+        // Stats
+        function updateStats() {
+            document.getElementById('statProducts').textContent = products.length;
+            const lowStock = products.filter(p => p.stock <= p.min_stock);
+            document.getElementById('statWarning').textContent = lowStock.length;
+            const today = new Date().toISOString().split('T')[0];
+            const todayData = salesReport.find(s => s.date === today);
+            document.getElementById('statSales').textContent = '¥' + (todayData ? todayData.total.toFixed(2) : '0.00');
+        }
+        
+        // Render Products
+        function renderProducts() {
+            const search = document.getElementById('searchText').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(search) || p.barcode.includes(search));
+            const tbody = document.getElementById('productsTable');
+            const noProducts = document.getElementById('noProducts');
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                noProducts.classList.remove('hidden');
+                return;
+            }
+            
+            noProducts.classList.add('hidden');
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td>${p.barcode}</td>
+                    <td>${p.name}</td>
+                    <td>${p.spec || '-'}</td>
+                    <td>¥${p.price.toFixed(2)}</td>
+                    <td style="color: ${p.stock <= p.min_stock ? '#f56c6c' : '#67c23a'}">${p.stock}</td>
+                    <td>${p.category}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="editProduct(${p.id})">编辑</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">删除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Scan
+        async function queryProduct() {
+            const barcode = document.getElementById('scanBarcode').value.trim();
+            if (!barcode) return;
+            
+            const [p] = await api(`products?barcode=eq.${barcode}&select=*`);
+            if (p) {
+                currentProduct = p;
+                saleQty = 1;
+                document.getElementById('scanResult').classList.remove('hidden');
+                document.getElementById('scanName').textContent = p.name;
+                document.getElementById('scanSpec').textContent = p.spec || '';
+                document.getElementById('scanStock').textContent = `库存: ${p.stock}`;
+                document.getElementById('scanStock').className = `product-stock ${p.stock <= p.min_stock ? 'low' : ''}`;
+                document.getElementById('scanPrice').textContent = `¥${p.price.toFixed(2)}`;
+                updateSaleTotal();
+            } else {
+                alert('商品未找到');
+            }
+            document.getElementById('scanBarcode').value = '';
+        }
+        
+        function changeQty(delta) {
+            if (currentProduct) {
+                saleQty = Math.max(1, saleQty + delta);
+                document.getElementById('saleQty').textContent = saleQty;
+                updateSaleTotal();
+            }
+        }
+        
+        function updateSaleTotal() {
+            if (currentProduct) {
+                document.getElementById('saleTotal').textContent = (currentProduct.price * saleQty).toFixed(2);
+            }
+        }
+        
+        async function confirmSale() {
+            if (!currentProduct) return;
+            
+            await api('sales', {
+                method: 'POST',
+                body: JSON.stringify({
+                    product_id: currentProduct.id,
+                    quantity: saleQty,
+                    total_price: currentProduct.price * saleQty
+                })
+            });
+            
+            await api(`products?id=eq.${currentProduct.id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ stock: currentProduct.stock - saleQty })
+            });
+            
+            alert('销售成功！');
+            document.getElementById('scanResult').classList.add('hidden');
+            currentProduct = null;
+            loadProducts();
+            loadSalesReport();
+        }
+        
+        // Product Modal
+        function openProductModal(id = null) {
+            document.getElementById('productModal').classList.add('show');
+            document.getElementById('modalTitle').textContent = id ? '编辑商品' : '添加商品';
+            document.getElementById('editProductId').value = id || '';
+            
+            if (id) {
+                const p = products.find(p => p.id === id);
+                document.getElementById('productBarcode').value = p.barcode;
+                document.getElementById('productName').value = p.name;
+                document.getElementById('productSpec').value = p.spec || '';
+                document.getElementById('productPrice').value = p.price;
+                document.getElementById('productStock').value = p.stock;
+                document.getElementById('productMinStock').value = p.min_stock;
+                document.getElementById('productCategory').value = p.category;
+            } else {
+                document.getElementById('productBarcode').value = '';
+                document.getElementById('productName').value = '';
+                document.getElementById('productSpec').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productStock').value = '0';
+                document.getElementById('productMinStock').value = '10';
+                document.getElementById('productCategory').value = '食品';
+            }
+        }
+        
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('show');
+        }
+        
+        async function saveProduct() {
+            const id = document.getElementById('editProductId').value;
+            const data = {
+                barcode: document.getElementById('productBarcode').value,
+                name: document.getElementById('productName').value,
+                spec: document.getElementById('productSpec').value || null,
+                price: parseFloat(document.getElementById('productPrice').value),
+                stock: parseInt(document.getElementById('productStock').value) || 0,
+                min_stock: parseInt(document.getElementById('productMinStock').value) || 10,
+                category: document.getElementById('productCategory').value
+            };
+            
+            if (!data.barcode || !data.name) {
+                alert('请填写必填项');
+                return;
+            }
+            
+            if (id) {
+                await api(`products?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify(data) });
+            } else {
+                await api('products', { method: 'POST', body: JSON.stringify(data) });
+            }
+            
+            closeProductModal();
+            loadProducts();
+        }
+        
+        function editProduct(id) {
+            openProductModal(id);
+        }
+        
+        async function deleteProduct(id) {
+            if (!confirm('确定删除？')) return;
+            await api(`products?id=eq.${id}`, { method: 'DELETE' });
+            loadProducts();
+        }
+        
+        // Purchase
+        function updatePurchaseSelect() {
+            const select = document.getElementById('purchaseProduct');
+            select.innerHTML = '<option value="">请选择商品</option>' + 
+                products.map(p => `<option value="${p.id}">${p.name} ${p.spec ? '(' + p.spec + ')' : ''}</option>`).join('');
+        }
+        
+        async function submitPurchase() {
+            const productId = document.getElementById('purchaseProduct').value;
+            const qty = parseInt(document.getElementById('purchaseQty').value);
+            
+            if (!productId) {
+                alert('请选择商品');
+                return;
+            }
+            
+            const product = products.find(p => p.id === parseInt(productId));
+            await api(`products?id=eq.${product.id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ stock: product.stock + qty })
+            });
+            
+            alert('入库成功！');
+            document.getElementById('purchaseQty').value = 1;
+            loadProducts();
+        }
+        
+        // Warning
+        function renderWarning() {
+            const lowStock = products.filter(p => p.stock <= p.min_stock);
+            const list = document.getElementById('warningList');
+            const noWarning = document.getElementById('noWarning');
+            
+            if (lowStock.length === 0) {
+                list.innerHTML = '';
+                noWarning.classList.remove('hidden');
+                return;
+            }
+            
+            noWarning.classList.add('hidden');
+            list.innerHTML = lowStock.map(p => `
+                <div class="product-card">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-spec">最低库存: ${p.min_stock}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="tag tag-danger">库存不足</span>
+                        <div style="font-size: 20px; color: #f56c6c; font-weight: bold; margin-top: 5px;">${p.stock}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Reports
+        function renderSalesReport() {
+            const tbody = document.getElementById('salesReportTable');
+            const noData = document.getElementById('noSalesReport');
+            
+            if (salesReport.length === 0) {
+                tbody.innerHTML = '';
+                noData.classList.remove('hidden');
+                return;
+            }
+            
+            noData.classList.add('hidden');
+            tbody.innerHTML = salesReport.map(s => `
+                <tr>
+                    <td>${s.date}</td>
+                    <td>${s.orders}</td>
+                    <td>${s.quantity}</td>
+                    <td style="color: #67c23a; font-weight: bold;">¥${s.total.toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+        
+        // Init
+        loadProducts();
+        loadSalesReport();
     </script>
 </body>
 </html>
