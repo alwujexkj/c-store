@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>便利店管理系统</title>
     <link rel="stylesheet" href="https://unpkg.com/element-plus@2.4.4/dist/index.css">
     <link rel="stylesheet" href="https://unpkg.com/@element-plus/icons-vue@2.3.1/dist/index.css">
@@ -453,9 +454,9 @@
                         </el-select>
                     </div>
                     
-                    <el-table :data="filteredProducts" style="width: 100%">
-                        <el-table-column prop="barcode" label="条码" width="150" />
-                        <el-table-column prop="name" label="商品名称" />
+                    <el-table :data="filteredProducts" style="width: 100%" stripe border>
+                        <el-table-column prop="barcode" label="条码" width="180" />
+                        <el-table-column prop="name" label="商品名称" min-width="150" />
                         <el-table-column prop="spec" label="规格" width="120" />
                         <el-table-column prop="price" label="单价" width="100">
                             <template #default="scope">
